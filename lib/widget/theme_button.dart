@@ -23,6 +23,7 @@ class PositionedButton extends StatelessWidget {
             );
           },
           icon: Icon(
+            size: 30,
             theme.brightness == Brightness.light
                 ? Icons.dark_mode
                 : Icons.light_mode,

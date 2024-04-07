@@ -1,4 +1,4 @@
-import 'package:buddy/screen/bottom_navigation.dart';
+import 'package:buddy/widget/bottom_navigation.dart';
 import 'package:buddy/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';

@@ -1,4 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:buddy/screen/info.dart';
+import 'package:buddy/screen/settings.dart';
 import 'package:buddy/theme/theme.dart';
 import 'package:buddy/widget/theme_button.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,16 @@ class SideNavBar extends StatelessWidget {
                 ),
                 title: Text('Settings',
                     style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const Settings();
+                      },
+                    ),
+                  );
+                },
               ),
             ),
             Padding(
@@ -47,7 +58,16 @@ class SideNavBar extends StatelessWidget {
                 ),
                 title: Text('Info',
                     style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const Info();
+                      },
+                    ),
+                  );
+                },
               ),
             ),
             const Spacer(),

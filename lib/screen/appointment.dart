@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:buddy/screen/add_appointment.dart';
 import 'package:flutter/material.dart';
 
 class Appointment extends StatelessWidget {
@@ -12,13 +13,15 @@ class Appointment extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.onSecondary,
+          backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
           onPressed: () {
-            print('text');
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return const AddAppointment();
+            }));
           },
           child: Icon(
             Icons.add,
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: Theme.of(context).colorScheme.background,
           ),
         ),
       ),

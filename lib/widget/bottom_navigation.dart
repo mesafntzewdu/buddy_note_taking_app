@@ -1,3 +1,4 @@
+import 'package:buddy/screen/add_task.dart';
 import 'package:buddy/screen/appointment.dart';
 import 'package:buddy/screen/task.dart';
 import 'package:buddy/widget/side_navigation.dart';
@@ -30,14 +31,6 @@ class BottomNavigationState extends State<BottomNavigation> {
       appBar: AppBar(
         title: Text(title),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.background,
-        ),
-      ),
       bottomNavigationBar: MoltenBottomNavigationBar(
         barColor: Theme.of(context).colorScheme.onSecondaryContainer,
         domeCircleColor: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -52,7 +45,7 @@ class BottomNavigationState extends State<BottomNavigation> {
             title: Text('Tasks',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.background)),
-            icon: Icon(Icons.task,
+            icon: Icon(Icons.list,
                 color: Theme.of(context).colorScheme.onSecondary),
           ),
           MoltenTab(
