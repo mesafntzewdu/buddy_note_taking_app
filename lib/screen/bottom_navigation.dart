@@ -2,6 +2,7 @@ import 'package:buddy/screen/appointment.dart';
 import 'package:buddy/screen/task.dart';
 import 'package:buddy/widget/side_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -30,29 +31,39 @@ class BottomNavigationState extends State<BottomNavigation> {
         title: Text(title),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
-        onPressed: () {
-          print('text');
-        },
+        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        onPressed: () {},
         child: Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          color: Theme.of(context).colorScheme.background,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Tasks'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month), label: 'Appointments'),
-        ],
-        onTap: (val) {
+      bottomNavigationBar: MoltenBottomNavigationBar(
+        barColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        domeCircleColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        selectedIndex: selectedIndex,
+        onTabChange: (clickedIndex) {
           setState(() {
-            selectedIndex = val;
-            print(selectedIndex);
+            selectedIndex = clickedIndex;
           });
         },
-        currentIndex: selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        tabs: [
+          MoltenTab(
+            title: Text('Tasks',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.background)),
+            icon: Icon(Icons.task,
+                color: Theme.of(context).colorScheme.onSecondary),
+          ),
+          MoltenTab(
+            title: Text(
+              'Appointments',
+              style: TextStyle(color: Theme.of(context).colorScheme.background),
+            ),
+            icon: Icon(Icons.calendar_month,
+                color: Theme.of(context).colorScheme.onSecondary),
+          ),
+        ],
       ),
       body: content,
     );

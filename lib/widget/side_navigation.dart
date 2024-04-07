@@ -1,3 +1,6 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:buddy/theme/theme.dart';
+import 'package:buddy/widget/theme_button.dart';
 import 'package:flutter/material.dart';
 
 class SideNavBar extends StatelessWidget {
@@ -5,55 +8,64 @@ class SideNavBar extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return NavigationDrawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      children: [
-        DrawerHeader(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Icon(
-                Icons.calendar_month,
-                size: 150,
+    return ThemeSwitchingArea(
+      child: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        child: Column(
+          children: [
+            const DrawerHeader(
+              child: Stack(
+                fit: StackFit.expand,
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    Icons.calendar_month,
+                    size: 140,
+                  ),
+                  PositionedButton(),
+                ],
               ),
-              Positioned(
-                left: 240,
-                right: 5,
-                top: 100,
-                bottom: 5,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.sunny),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.settings,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
-              )
-            ],
-          ),
+                title: Text('Settings',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.info,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+                title: Text('Info',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: ListTile(
+                leading: Icon(
+                  Icons.lock,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+                title: Text('Lock',
+                    style: Theme.of(context).textTheme.titleMedium),
+                onTap: () {},
+              ),
+            )
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('Info'),
-            onTap: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: ListTile(
-            leading: const Icon(Icons.lock),
-            title: const Text('Lock'),
-            onTap: () {},
-          ),
-        )
-      ],
+      ),
     );
   }
 }
