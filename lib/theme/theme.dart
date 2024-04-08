@@ -9,6 +9,19 @@ ThemeData lightTheme = ThemeData(
     bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
     bodyMedium: TextStyle(fontSize: 14, color: Colors.black),
   ),
+  iconTheme: const IconThemeData(
+    color: Colors.black,
+    size: 20,
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    focusColor: Colors.black12,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(
+        color: Color.fromARGB(255, 34, 173, 180),
+      ),
+    ),
+  ),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -19,5 +32,18 @@ ThemeData darkTheme = ThemeData(
     titleMedium: TextStyle(fontSize: 18, color: Colors.white),
     bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
     bodyMedium: TextStyle(fontSize: 14, color: Colors.white),
+  ),
+  iconTheme: const IconThemeData(
+    color: Color.fromARGB(100, 0, 255, 255),
+    size: 20,
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    focusColor: const Color.fromARGB(100, 0, 255, 255),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(
+        color: Color.fromARGB(100, 0, 255, 255),
+      ),
+    ),
   ),
 );

@@ -13,6 +13,10 @@ class AddTask extends StatefulWidget {
 class AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
+    void dataFunction() {
+      print('date is called');
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -35,7 +39,8 @@ class AddTaskState extends State<AddTask> {
                 ),
                 TextField(
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Task Title',
                     label: Text(
                       'Task Title',
@@ -49,10 +54,11 @@ class AddTaskState extends State<AddTask> {
                 TextField(
                   maxLines: 3,
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: 'Task Description',
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    hintText: 'Description',
                     label: Text(
-                      'Task Description',
+                      'Description',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
@@ -60,29 +66,53 @@ class AddTaskState extends State<AddTask> {
                 const SizedBox(
                   height: 10,
                 ),
-                const TextField(
+                TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Task End date',
-                    label: Text('Task End date'),
-                  ),
+                      border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintText: 'End date',
+                      label: Text(
+                        'End date',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.calendar_month,
+                        color: Theme.of(context).iconTheme.color,
+                      )),
+                  onTap: dataFunction,
+                  readOnly: true,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const TextField(
+                TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Task Reminder',
-                    label: Text('Task Title'),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    hintText: 'Reminder',
+                    label: Text(
+                      'Reminder',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.alarm,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
                   ),
+                  readOnly: true,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 OutlinedButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.add),
+                  icon: Icon(
+                    Icons.add,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                   label: Text(
                     'Add Task',
                     style: Theme.of(context).textTheme.bodyLarge,

@@ -13,7 +13,7 @@ class Appointment extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+          backgroundColor: Theme.of(context).iconTheme.color,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return const AddAppointment();

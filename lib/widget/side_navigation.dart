@@ -33,7 +33,7 @@ class SideNavBar extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.settings,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 title: Text('Settings',
                     style: Theme.of(context).textTheme.titleMedium),
@@ -54,7 +54,7 @@ class SideNavBar extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.info,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 title: Text('Info',
                     style: Theme.of(context).textTheme.titleMedium),
@@ -75,10 +75,10 @@ class SideNavBar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: ListTile(
                 leading: Icon(
-                  Icons.lock,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  Icons.logout,
+                  color: Theme.of(context).iconTheme.color,
                 ),
-                title: Text('Lock',
+                title: Text('Logout',
                     style: Theme.of(context).textTheme.titleMedium),
                 onTap: () {},
               ),

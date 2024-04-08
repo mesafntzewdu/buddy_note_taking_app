@@ -30,10 +30,20 @@ class BottomNavigationState extends State<BottomNavigation> {
       drawer: const SideNavBar(),
       appBar: AppBar(
         title: Text(title),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.lock_open_sharp,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+        ],
       ),
       bottomNavigationBar: MoltenBottomNavigationBar(
-        barColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        domeCircleColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        barColor: Theme.of(context).colorScheme.onBackground,
+        domeCircleColor: Theme.of(context).colorScheme.onBackground,
         selectedIndex: selectedIndex,
         onTabChange: (clickedIndex) {
           setState(() {
@@ -45,16 +55,20 @@ class BottomNavigationState extends State<BottomNavigation> {
             title: Text('Tasks',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.background)),
-            icon: Icon(Icons.list,
-                color: Theme.of(context).colorScheme.onSecondary),
+            icon: Icon(
+              Icons.list,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
           MoltenTab(
             title: Text(
               'Appointments',
               style: TextStyle(color: Theme.of(context).colorScheme.background),
             ),
-            icon: Icon(Icons.calendar_month,
-                color: Theme.of(context).colorScheme.onSecondary),
+            icon: Icon(
+              Icons.calendar_month,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ],
       ),
