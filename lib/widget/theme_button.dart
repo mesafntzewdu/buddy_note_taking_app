@@ -27,7 +27,9 @@ class PositionedButton extends StatelessWidget {
             theme.brightness == Brightness.light
                 ? Icons.dark_mode
                 : Icons.light_mode,
-            color: Theme.of(context).iconTheme.color,
+            color: theme.brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
           ),
         ),
       ),

@@ -5,9 +5,9 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   textTheme: const TextTheme(
     titleLarge: TextStyle(fontSize: 24, color: Colors.black),
-    titleMedium: TextStyle(fontSize: 18, color: Colors.black),
-    bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
-    bodyMedium: TextStyle(fontSize: 14, color: Colors.black),
+    titleMedium: TextStyle(fontSize: 22, color: Colors.black),
+    bodyLarge: TextStyle(fontSize: 20, color: Colors.black),
+    bodyMedium: TextStyle(fontSize: 18, color: Colors.black),
   ),
   iconTheme: const IconThemeData(
     color: Colors.black,
@@ -29,9 +29,9 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   textTheme: const TextTheme(
     titleLarge: TextStyle(fontSize: 24, color: Colors.white),
-    titleMedium: TextStyle(fontSize: 18, color: Colors.white),
-    bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
-    bodyMedium: TextStyle(fontSize: 14, color: Colors.white),
+    titleMedium: TextStyle(fontSize: 22, color: Colors.white),
+    bodyLarge: TextStyle(fontSize: 20, color: Colors.white),
+    bodyMedium: TextStyle(fontSize: 18, color: Colors.white),
   ),
   iconTheme: const IconThemeData(
     color: Color.fromARGB(100, 0, 255, 255),

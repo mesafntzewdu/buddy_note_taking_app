@@ -1,7 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:buddy/screen/info.dart';
 import 'package:buddy/screen/settings.dart';
-import 'package:buddy/theme/theme.dart';
 import 'package:buddy/widget/theme_button.dart';
 import 'package:flutter/material.dart';
 

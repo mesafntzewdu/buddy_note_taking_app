@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:buddy/helper/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,12 +14,24 @@ class AddTask extends StatefulWidget {
 }
 
 class AddTaskState extends State<AddTask> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController alertController = TextEditingController();
+  TimeOfDay? timeOfDay;
+  DateTime? pickedDate;
+  DateTime? scheduleDateTime;
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    descController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    void dataFunction() {
-      print('date is called');
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,9 +53,14 @@ class AddTaskState extends State<AddTask> {
                   height: 300,
                 ),
                 TextField(
+                  maxLength: 20,
+                  controller: titleController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
                     hintText: 'Task Title',
                     label: Text(
                       'Task Title',
@@ -52,10 +72,15 @@ class AddTaskState extends State<AddTask> {
                   height: 10,
                 ),
                 TextField(
+                  maxLength: 200,
+                  controller: descController,
                   maxLines: 3,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
                     hintText: 'Description',
                     label: Text(
                       'Description',
@@ -67,6 +92,7 @@ class AddTaskState extends State<AddTask> {
                   height: 10,
                 ),
                 TextField(
+                  controller: endDateController,
                   decoration: InputDecoration(
                       border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -79,22 +105,23 @@ class AddTaskState extends State<AddTask> {
                         Icons.calendar_month,
                         color: Theme.of(context).iconTheme.color,
                       )),
-                  onTap: dataFunction,
+                  onTap: datePicker,
                   readOnly: true,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextField(
+                  controller: alertController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    hintText: 'Reminder',
+                    hintText: 'Reminder at',
                     label: Text(
-                      'Reminder',
+                      'Daily Reminder at',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     prefixIcon: Icon(
@@ -102,13 +129,14 @@ class AddTaskState extends State<AddTask> {
                       color: Theme.of(context).iconTheme.color,
                     ),
                   ),
+                  onTap: timePicker,
                   readOnly: true,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: addTaskAndNotify,
                   icon: Icon(
                     Icons.add,
                     color: Theme.of(context).iconTheme.color,
@@ -124,6 +152,82 @@ class AddTaskState extends State<AddTask> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> datePicker() async {
+    var fistDate = DateTime.now();
+    var lastDate = fistDate.add(const Duration(days: 365));
+
+    await showDatePicker(
+      context: context,
+      initialDate: fistDate,
+      firstDate: fistDate,
+      lastDate: lastDate,
+    ).then(
+      (value) => setState(() {
+        endDateController.text = value.toString().substring(0, 11);
+      }),
+    );
+  }
+
+  Future<void> timePicker() async {
+    var initTime = TimeOfDay.now();
+
+    await showTimePicker(
+      context: context,
+      initialTime: initTime,
+    ).then(
+      (value) => setState(
+        () {
+          if (value != null) {
+            alertController.text = value.format(context).toString();
+            scheduleDateTime = DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+              value.hour,
+              value.minute,
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  void addTaskAndNotify() {
+    if (titleController.text.trim().isEmpty) {
+      snackBar('Title should not be empty');
+      return;
+    }
+
+    if (endDateController.text.trim().isEmpty) {
+      snackBar('End date should not be empty');
+      return;
+    }
+    if (alertController.text.trim().isEmpty) {
+      snackBar('Time should not be empty');
+      return;
+    }
+    NotificationHelper.scheduleNotification(
+      'Hey, am your Buddy.',
+      'You set reminder for "${titleController.text.trim()}" check it out.',
+      10,
+      scheduleDateTime!,
+      endDateController.text.trim(),
+    );
+  }
+
+  void snackBar(String title) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        content: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
     );
