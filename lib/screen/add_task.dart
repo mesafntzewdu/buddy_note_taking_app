@@ -1,6 +1,10 @@
 import 'dart:math';
 
 import 'package:buddy/helper/notification.dart';
+import 'package:buddy/model/task.dart';
+import 'package:buddy/screen/bottom_navigation.dart';
+import 'package:buddy/screen/task.dart';
+import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -37,6 +41,13 @@ class AddTaskState extends State<AddTask> {
         title: Text(
           'Add new Task',
           style: Theme.of(context).textTheme.titleLarge,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => BottomNavigation()));
+          },
         ),
       ),
       body: Center(
@@ -211,6 +222,9 @@ class AddTaskState extends State<AddTask> {
       snackBar('Time should not be empty');
       return;
     }
+//add new task to db
+    addToDb();
+//add notification
     NotificationHelper.scheduleNotification(
       'Hey, am your Buddy.',
       'You set reminder for "${titleController.text.trim()}" check it out.',
@@ -218,6 +232,18 @@ class AddTaskState extends State<AddTask> {
       scheduleDateTime!,
       endDateController.text.trim(),
     );
+//show done message
+    snackBar('New task added');
+  }
+
+  void addToDb() {
+    DbHelper.insert(TaskModel(
+      id: Random().nextInt(10000) + 1000,
+      title: titleController.text.trim(),
+      description: descController.text.trim(),
+      endDate: endDateController.text.trim(),
+      reminder: alertController.text.trim(),
+    ));
   }
 
   void snackBar(String title) {

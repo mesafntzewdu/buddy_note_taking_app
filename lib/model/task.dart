@@ -1,38 +1,34 @@
-// import 'package:flutter/material.dart';
+import 'dart:convert';
 
-// class TaskModel {
-//   late String title;
-//   late String description;
-//   late DateTime endDate;
-//   late TimeOfDay reminder;
+import 'package:flutter/material.dart';
 
-//   void setDate(endDate) {
-//     this.endDate = endDate;
-//   }
+class TaskModel {
+  final int id;
+  final String title;
+  final String description;
+  final String endDate;
+  final String reminder;
 
-//   void setRem(reminder) {
-//     this.reminder = reminder;
-//   }
+  const TaskModel(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.endDate,
+      required this.reminder});
 
-//   String getTitle() {
-//     return title;
-//   }
+  factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        endDate: json['end_date'],
+        reminder: json['reminder'],
+      );
 
-//   String getDesc() {
-//     return description;
-//   }
-
-//   DateTime getEndDate() {
-//     return endDate;
-//   }
-
-//   TimeOfDay getRem() {
-//     return reminder;
-//   }
-
-// TaskModel taskModel;
-
-//   static singleInstace(){
-//     if(taskModel == null)
-//   }
-// }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'description': description,
+        'end_date': endDate,
+        'reminder': reminder,
+      };
+}

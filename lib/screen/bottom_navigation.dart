@@ -19,7 +19,7 @@ class BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(context) {
     var title = 'Tasks';
-    Widget content = const Task();
+    Widget content = Task();
 
     if (selectedIndex == 1) {
       title = 'History';
