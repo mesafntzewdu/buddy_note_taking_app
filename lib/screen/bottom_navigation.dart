@@ -80,37 +80,6 @@ class BottomNavigationState extends State<BottomNavigation> {
           });
         },
       ),
-      // bottomNavigationBar: MoltenBottomNavigationBar(
-      //   barColor: Theme.of(context).iconTheme.color,
-      //   domeCircleColor: Theme.of(context).colorScheme.background,
-      //   selectedIndex: selectedIndex,
-      //   onTabChange: (clickedIndex) {
-      //     setState(() {
-      //       selectedIndex = clickedIndex;
-      //     });
-      //   },
-      //   tabs: [
-      //     MoltenTab(
-      //       title: Text('Tasks',
-      //           style:
-      //               TextStyle(color: Theme.of(context).colorScheme.background)),
-      //       icon: Icon(
-      //         Icons.list,
-      //         color: Theme.of(context).iconTheme.color,
-      //       ),
-      //     ),
-      //     MoltenTab(
-      //       title: Text(
-      //         'Appointments',
-      //         style: TextStyle(color: Theme.of(context).colorScheme.background),
-      //       ),
-      //       icon: Icon(
-      //         Icons.calendar_month,
-      //         color: Theme.of(context).iconTheme.color,
-      //       ),
-      //     ),
-      //   ],
-      //),
       body: content,
     );
   }

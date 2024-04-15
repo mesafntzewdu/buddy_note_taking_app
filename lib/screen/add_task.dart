@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:buddy/helper/notification.dart';
 import 'package:buddy/model/task.dart';
 import 'package:buddy/screen/bottom_navigation.dart';
-import 'package:buddy/screen/task.dart';
 import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -222,9 +222,9 @@ class AddTaskState extends State<AddTask> {
       snackBar('Time should not be empty');
       return;
     }
-//add new task to db
+    //add new task to db
     addToDb();
-//add notification
+    //add notification
     NotificationHelper.scheduleNotification(
       'Hey, am your Buddy.',
       'You set reminder for "${titleController.text.trim()}" check it out.',
@@ -232,7 +232,7 @@ class AddTaskState extends State<AddTask> {
       scheduleDateTime!,
       endDateController.text.trim(),
     );
-//show done message
+    //show done message
     snackBar('New task added');
   }
 

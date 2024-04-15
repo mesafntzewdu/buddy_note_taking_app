@@ -1,4 +1,5 @@
 import 'package:buddy/model/task.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -18,7 +19,6 @@ class DbHelper {
 
   static Future<int> insert(TaskModel taskModel) async {
     final db = await _getDb();
-
     return db.insert(
       'buddy',
       taskModel.toJson(),
