@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
       ],
       child: ThemeProvider(
         initTheme: lightTheme,
-        duration: const Duration(microseconds: 600),
         builder: (_, theme) => MaterialApp(
-          color: Theme.of(context).colorScheme.background,
           theme: theme,
           debugShowCheckedModeBanner: false,
           home: const BottomNavigation(),

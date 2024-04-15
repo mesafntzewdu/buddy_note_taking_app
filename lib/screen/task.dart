@@ -22,9 +22,13 @@ class Task extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: Theme.of(context).iconTheme.color,
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const AddTask();
-              }));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const AddTask();
+                  },
+                ),
+              );
             },
             child: Icon(
               Icons.add,
@@ -35,15 +39,19 @@ class Task extends StatelessWidget {
             future: tasks,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: Text('Loading....'));
+                return const Center(
+                  child: Text('Loading....'),
+                );
               }
               if (snapshot.hasError) {
-                return const Center(child: Text('Error fetching'));
+                return const Center(
+                  child: Text('Error fetching'),
+                );
               }
               if (!snapshot.hasData) {
                 return Center(
                   child: Lottie.asset(
-                    'assets/emptylist.json',
+                    'assets/note_list.json',
                     width: 300,
                     height: 300,
                   ),
@@ -53,9 +61,12 @@ class Task extends StatelessWidget {
               final deleteData = context.watch<DeleteProvider>();
 
               snapCopy!.remove(deleteData.taskModel);
+              if (snapCopy.isEmpty) {
+                return Task();
+              }
 
               return ListView.builder(
-                itemCount: snapCopy!.length,
+                itemCount: snapCopy.length,
                 itemBuilder: (ctx, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),

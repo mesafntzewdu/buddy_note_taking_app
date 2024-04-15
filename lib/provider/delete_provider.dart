@@ -11,4 +11,9 @@ class DeleteProvider extends ChangeNotifier {
     this.taskModel = taskModel;
     notifyListeners();
   }
+
+  void doneTask(TaskModel model) {
+    DbHelper.completeTask(model);
+    notifyListeners();
+  }
 }

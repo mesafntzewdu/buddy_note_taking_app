@@ -6,18 +6,19 @@ import 'package:buddy/screen/bottom_navigation.dart';
 import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({super.key});
+class UpdateTask extends StatefulWidget {
+  const UpdateTask({super.key, required this.data});
+
+  final TaskModel data;
 
   @override
-  State<AddTask> createState() {
-    return AddTaskState();
+  State<UpdateTask> createState() {
+    return UpdateTaskState();
   }
 }
 
-class AddTaskState extends State<AddTask> {
+class UpdateTaskState extends State<UpdateTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
 
@@ -26,6 +27,12 @@ class AddTaskState extends State<AddTask> {
   TimeOfDay? timeOfDay;
   DateTime? pickedDate;
   DateTime? scheduleDateTime;
+  @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.data.title;
+    descController.text = widget.data.description;
+  }
 
   @override
   void dispose() {
@@ -39,14 +46,14 @@ class AddTaskState extends State<AddTask> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Add new Task',
+          'Update task',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => BottomNavigation()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const BottomNavigation()));
           },
         ),
       ),
@@ -147,13 +154,13 @@ class AddTaskState extends State<AddTask> {
                   height: 15,
                 ),
                 OutlinedButton.icon(
-                  onPressed: addTaskAndNotify,
+                  onPressed: updateTaskAndNotify,
                   icon: Icon(
-                    Icons.add,
+                    Icons.update,
                     color: Theme.of(context).iconTheme.color,
                   ),
                   label: Text(
-                    'Add Task',
+                    'Update Task',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
@@ -208,7 +215,7 @@ class AddTaskState extends State<AddTask> {
     );
   }
 
-  void addTaskAndNotify() {
+  void updateTaskAndNotify() {
     if (titleController.text.trim().isEmpty) {
       snackBar('Title should not be empty');
       return;
@@ -223,7 +230,7 @@ class AddTaskState extends State<AddTask> {
       return;
     }
     //add new task to db
-    addToDb();
+    updateToDo();
     //add notification
     NotificationHelper.scheduleNotification(
       'Hey, am your Buddy.',
@@ -233,12 +240,12 @@ class AddTaskState extends State<AddTask> {
       endDateController.text.trim(),
     );
     //show done message
-    snackBar('New task added');
+    snackBar('Task updated');
   }
 
-  void addToDb() {
-    DbHelper.insert(TaskModel(
-      id: Random().nextInt(10000) + 1000,
+  void updateToDo() {
+    DbHelper.update(TaskModel(
+      id: widget.data.id,
       title: titleController.text.trim(),
       description: descController.text.trim(),
       endDate: endDateController.text.trim(),

@@ -23,7 +23,6 @@ class SideNavBar extends StatelessWidget {
                     Icons.calendar_month,
                     size: 140,
                   ),
-                  PositionedButton(),
                 ],
               ),
             ),
@@ -70,17 +69,9 @@ class SideNavBar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              child: ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: Text('Logout',
-                    style: Theme.of(context).textTheme.titleMedium),
-                onTap: () {},
-              ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Text('Version 1.0.0'),
             )
           ],
         ),

@@ -7,30 +7,24 @@ class PositionedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 235,
-      right: 5,
-      top: 100,
-      bottom: 5,
-      child: ThemeSwitcher.withTheme(
-        clipper: const ThemeSwitcherCircleClipper(),
-        builder: (context, switcher, theme) => IconButton(
-          onPressed: () {
-            switcher.changeTheme(
-              theme:
-                  theme.brightness == Brightness.light ? darkTheme : lightTheme,
-              isReversed: true,
-            );
-          },
-          icon: Icon(
-            size: 30,
-            theme.brightness == Brightness.light
-                ? Icons.dark_mode
-                : Icons.light_mode,
-            color: theme.brightness == Brightness.light
-                ? Colors.black
-                : Colors.white,
-          ),
+    return ThemeSwitcher.withTheme(
+      clipper: const ThemeSwitcherCircleClipper(),
+      builder: (context, switcher, theme) => IconButton(
+        onPressed: () {
+          switcher.changeTheme(
+            theme:
+                theme.brightness == Brightness.light ? darkTheme : lightTheme,
+            isReversed: true,
+          );
+        },
+        icon: Icon(
+          size: 30,
+          theme.brightness == Brightness.light
+              ? Icons.dark_mode
+              : Icons.light_mode,
+          color: theme.brightness == Brightness.light
+              ? Colors.black
+              : Colors.white,
         ),
       ),
     );
