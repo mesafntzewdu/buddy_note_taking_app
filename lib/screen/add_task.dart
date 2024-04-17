@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:buddy/helper/notification.dart';
 import 'package:buddy/model/task.dart';
 import 'package:buddy/screen/bottom_navigation.dart';
 import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -18,6 +19,7 @@ class AddTask extends StatefulWidget {
 }
 
 class AddTaskState extends State<AddTask> {
+  DateFormat dateFormat = DateFormat('yyyy-MM-dd');
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
 
@@ -25,7 +27,17 @@ class AddTaskState extends State<AddTask> {
   TextEditingController alertController = TextEditingController();
   TimeOfDay? timeOfDay;
   DateTime? pickedDate;
-  DateTime? scheduleDateTime;
+  TimeOfDay? timePicked;
+
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then((value) {
+      if (!value) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -179,7 +191,8 @@ class AddTaskState extends State<AddTask> {
       lastDate: lastDate,
     ).then(
       (value) => setState(() {
-        endDateController.text = value.toString().substring(0, 11);
+        endDateController.text = dateFormat.format(value!);
+        //value.toString().substring(0, 11);
       }),
     );
   }
@@ -195,13 +208,7 @@ class AddTaskState extends State<AddTask> {
         () {
           if (value != null) {
             alertController.text = value.format(context).toString();
-            scheduleDateTime = DateTime(
-              DateTime.now().year,
-              DateTime.now().month,
-              DateTime.now().day,
-              value.hour,
-              value.minute,
-            );
+            timePicked = value;
           }
         },
       ),
@@ -225,20 +232,22 @@ class AddTaskState extends State<AddTask> {
     //add new task to db
     addToDb();
     //add notification
-    NotificationHelper.scheduleNotification(
-      'Hey, am your Buddy.',
-      'You set reminder for "${titleController.text.trim()}" check it out.',
-      10,
-      scheduleDateTime!,
-      endDateController.text.trim(),
+    NotificationHelper.setNotification(
+      id: Random().nextInt(10000) + 500,
+      title: 'Hey, am your Buddy.',
+      body:
+          'You set reminder for "${titleController.text.trim()}" check it out.',
+      alertTime: timePicked,
+      endDate: DateTime.parse(endDateController.text.trim()),
     );
+
     //show done message
     snackBar('New task added');
   }
 
   void addToDb() {
     DbHelper.insert(TaskModel(
-      id: Random().nextInt(10000) + 1000,
+      id: Random().nextInt(10),
       title: titleController.text.trim(),
       description: descController.text.trim(),
       endDate: endDateController.text.trim(),

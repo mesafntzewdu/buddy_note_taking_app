@@ -59,8 +59,12 @@ class Task extends StatelessWidget {
               }
               var snapCopy = snapshot.data;
               final deleteData = context.watch<DeleteProvider>();
+              snapCopy!.removeWhere((e) =>
+                  e.id ==
+                  (deleteData.taskModel == null
+                      ? 0
+                      : deleteData.taskModel!.id));
 
-              snapCopy!.remove(deleteData.taskModel);
               if (snapCopy.isEmpty) {
                 return Task();
               }

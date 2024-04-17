@@ -9,6 +9,9 @@ class Settings extends StatefulWidget {
   }
 }
 
+bool animateSet = false;
+bool useSystemTheme = false;
+
 class SettingsState extends State<Settings> {
   @override
   Widget build(context) {
@@ -18,6 +21,38 @@ class SettingsState extends State<Settings> {
           'Settings',
           style: Theme.of(context).textTheme.titleLarge,
         ),
+      ),
+      body: Column(
+        children: [
+          SwitchListTile(
+            title: Text(
+              'Don\'t animate',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            value: animateSet,
+            onChanged: (val) {
+              setState(
+                () {
+                  animateSet = val;
+                },
+              );
+            },
+          ),
+          SwitchListTile(
+            title: Text(
+              'Use system theme',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            value: useSystemTheme,
+            onChanged: (val) {
+              setState(
+                () {
+                  useSystemTheme = val;
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

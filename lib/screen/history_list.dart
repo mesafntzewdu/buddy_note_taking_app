@@ -23,7 +23,6 @@ class HistoryList extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
-              flex: 1,
               onPressed: (_) {
                 value.deleteTask(data);
               },
@@ -32,33 +31,6 @@ class HistoryList extends StatelessWidget {
               icon: Icons.delete,
               label: 'Delete',
               color: Colors.red,
-            ),
-            SlidableAction(
-              onPressed: (_) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) {
-                      return UpdateTask(data: data);
-                    },
-                  ),
-                );
-              },
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              foregroundColor: const Color(0xFFFFFFFF),
-              icon: Icons.edit,
-              color: Colors.green,
-              label: 'Edit',
-            ),
-            SlidableAction(
-              onPressed: (_) {
-                value.doneTask(data);
-              },
-              backgroundColor:
-                  Theme.of(context).colorScheme.onSecondaryContainer,
-              foregroundColor: const Color(0xFFFFFFFF),
-              icon: Icons.done,
-              color: Colors.blue,
-              label: 'Completed',
             ),
           ],
         ),
@@ -100,11 +72,9 @@ class HistoryList extends StatelessWidget {
               top: 70,
               right: 20,
               bottom: 50,
-              child: SingleChildScrollView(
-                child: Text(
-                  data.description,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
+              child: Text(
+                data.description,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             Positioned(

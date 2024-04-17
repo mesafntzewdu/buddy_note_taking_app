@@ -24,7 +24,7 @@ class BottomNavigationState extends State<BottomNavigation> {
 
     if (selectedIndex == 1) {
       title = 'History';
-      content = Appointment();
+      content = History();
     }
     return ThemeSwitchingArea(
       child: Scaffold(

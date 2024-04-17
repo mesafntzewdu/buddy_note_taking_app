@@ -53,7 +53,16 @@ class TaskList extends StatelessWidget {
               ),
               SlidableAction(
                 onPressed: (_) {
-                  value.doneTask(data);
+                  value.doneTask(
+                    TaskModel(
+                      id: data.id,
+                      title: data.title,
+                      description: data.description,
+                      endDate: data.endDate,
+                      reminder: data.reminder,
+                      done: 'done',
+                    ),
+                  );
                 },
                 backgroundColor:
                     Theme.of(context).colorScheme.onSecondaryContainer,
@@ -99,14 +108,12 @@ class TaskList extends StatelessWidget {
               ),
               Positioned(
                 left: 20,
-                top: 70,
+                top: 45,
                 right: 20,
                 bottom: 50,
-                child: SingleChildScrollView(
-                  child: Text(
-                    data.description,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                child: Text(
+                  data.description,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
               Positioned(

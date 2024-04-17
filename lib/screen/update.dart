@@ -26,7 +26,7 @@ class UpdateTaskState extends State<UpdateTask> {
   TextEditingController alertController = TextEditingController();
   TimeOfDay? timeOfDay;
   DateTime? pickedDate;
-  DateTime? scheduleDateTime;
+  TimeOfDay? timePicked;
   @override
   void initState() {
     super.initState();
@@ -202,13 +202,7 @@ class UpdateTaskState extends State<UpdateTask> {
         () {
           if (value != null) {
             alertController.text = value.format(context).toString();
-            scheduleDateTime = DateTime(
-              DateTime.now().year,
-              DateTime.now().month,
-              DateTime.now().day,
-              value.hour,
-              value.minute,
-            );
+            timePicked = value;
           }
         },
       ),
@@ -232,12 +226,13 @@ class UpdateTaskState extends State<UpdateTask> {
     //add new task to db
     updateToDo();
     //add notification
-    NotificationHelper.scheduleNotification(
-      'Hey, am your Buddy.',
-      'You set reminder for "${titleController.text.trim()}" check it out.',
-      10,
-      scheduleDateTime!,
-      endDateController.text.trim(),
+    NotificationHelper.setNotification(
+      id: Random().nextInt(10000) + 500,
+      title: 'Hey, am your Buddy.',
+      body:
+          'You set reminder for "${titleController.text.trim()}" check it out.',
+      alertTime: timePicked,
+      endDate: DateTime.parse(endDateController.text.trim()),
     );
     //show done message
     snackBar('Task updated');

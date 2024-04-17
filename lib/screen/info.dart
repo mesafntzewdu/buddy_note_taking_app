@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Info extends StatelessWidget {
   const Info({super.key});
@@ -10,6 +12,37 @@ class Info extends StatelessWidget {
         title: Text(
           'Info',
           style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Made with',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Lottie.asset('assets/love.json', width: 100, height: 100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'By Mesafint',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                IconButton(
+                  onPressed: () {
+                    launchUrl(Uri.parse('https://t.me/mesafntz'));
+                  },
+                  icon: const Icon(
+                    Icons.telegram,
+                    color: Colors.blue,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
