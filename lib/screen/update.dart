@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:buddy/helper/notification.dart';
 import 'package:buddy/model/task.dart';
 import 'package:buddy/screen/bottom_navigation.dart';
+import 'package:buddy/screen/task.dart';
 import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class UpdateTask extends StatefulWidget {
@@ -43,131 +45,135 @@ class UpdateTaskState extends State<UpdateTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Update task',
-          style: Theme.of(context).textTheme.titleLarge,
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      builder: (context, child) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Update task',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const BottomNavigation()));
+            },
+          ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BottomNavigation()));
-          },
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Lottie.asset(
-                  'assets/animation.json',
-                  width: double.infinity,
-                  height: 300,
-                ),
-                TextField(
-                  maxLength: 20,
-                  controller: titleController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    hintText: 'Task Title',
-                    label: Text(
-                      'Task Title',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'assets/animation.json',
+                    width: double.infinity,
+                    height: 300.h,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  maxLength: 200,
-                  controller: descController,
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    hintText: 'Description',
-                    label: Text(
-                      'Description',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: endDateController,
-                  decoration: InputDecoration(
+                  TextField(
+                    maxLength: 20,
+                    controller: titleController,
+                    decoration: InputDecoration(
                       border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      hintText: 'End date',
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      hintText: 'Task Title',
                       label: Text(
-                        'End date',
+                        'Task Title',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextField(
+                    maxLength: 200,
+                    controller: descController,
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      hintText: 'Description',
+                      label: Text(
+                        'Description',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextField(
+                    controller: endDateController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.r))),
+                        hintText: 'End date',
+                        label: Text(
+                          'End date',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.calendar_month,
+                          color: Theme.of(context).iconTheme.color,
+                        )),
+                    onTap: datePicker,
+                    readOnly: true,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextField(
+                    controller: alertController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
+                        ),
+                      ),
+                      hintText: 'Reminder at',
+                      label: Text(
+                        'Daily Reminder at',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       prefixIcon: Icon(
-                        Icons.calendar_month,
+                        Icons.alarm,
                         color: Theme.of(context).iconTheme.color,
-                      )),
-                  onTap: datePicker,
-                  readOnly: true,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: alertController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
                       ),
                     ),
-                    hintText: 'Reminder at',
-                    label: Text(
-                      'Daily Reminder at',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.alarm,
+                    onTap: timePicker,
+                    readOnly: true,
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: updateTaskAndNotify,
+                    icon: Icon(
+                      Icons.update,
                       color: Theme.of(context).iconTheme.color,
                     ),
+                    label: Text(
+                      'Update Task',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
-                  onTap: timePicker,
-                  readOnly: true,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                OutlinedButton.icon(
-                  onPressed: updateTaskAndNotify,
-                  icon: Icon(
-                    Icons.update,
-                    color: Theme.of(context).iconTheme.color,
+                  SizedBox(
+                    height: 10.h,
                   ),
-                  label: Text(
-                    'Update Task',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -236,6 +242,11 @@ class UpdateTaskState extends State<UpdateTask> {
     );
     //show done message
     snackBar('Task updated');
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) => Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Task()),
+      ),
+    );
   }
 
   void updateToDo() {

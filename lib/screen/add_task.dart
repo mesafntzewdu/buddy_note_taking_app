@@ -6,6 +6,7 @@ import 'package:buddy/model/task.dart';
 import 'package:buddy/screen/bottom_navigation.dart';
 import 'package:buddy/service/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
@@ -48,131 +49,135 @@ class AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Add new Task',
-          style: Theme.of(context).textTheme.titleLarge,
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      builder: (context, child) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Add new Task',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => BottomNavigation()));
+            },
+          ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => BottomNavigation()));
-          },
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Lottie.asset(
-                  'assets/animation.json',
-                  width: double.infinity,
-                  height: 300,
-                ),
-                TextField(
-                  maxLength: 20,
-                  controller: titleController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    hintText: 'Task Title',
-                    label: Text(
-                      'Task Title',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'assets/animation.json',
+                    width: double.infinity,
+                    height: 300.h,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  maxLength: 200,
-                  controller: descController,
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                  TextField(
+                    maxLength: 20,
+                    controller: titleController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
+                        ),
                       ),
-                    ),
-                    hintText: 'Description',
-                    label: Text(
-                      'Description',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: endDateController,
-                  decoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      hintText: 'End date',
+                      hintText: 'Task Title',
                       label: Text(
-                        'End date',
+                        'Task Title',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    maxLength: 100,
+                    controller: descController,
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
+                        ),
+                      ),
+                      hintText: 'Description',
+                      label: Text(
+                        'Description',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextField(
+                    controller: endDateController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.r))),
+                        hintText: 'End date',
+                        label: Text(
+                          'End date',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.calendar_month,
+                          color: Theme.of(context).iconTheme.color,
+                        )),
+                    onTap: datePicker,
+                    readOnly: true,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextField(
+                    controller: alertController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
+                        ),
+                      ),
+                      hintText: 'Reminder at',
+                      label: Text(
+                        'Daily Reminder at',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       prefixIcon: Icon(
-                        Icons.calendar_month,
+                        Icons.alarm,
                         color: Theme.of(context).iconTheme.color,
-                      )),
-                  onTap: datePicker,
-                  readOnly: true,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: alertController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
                       ),
                     ),
-                    hintText: 'Reminder at',
-                    label: Text(
-                      'Daily Reminder at',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.alarm,
+                    onTap: timePicker,
+                    readOnly: true,
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: addTaskAndNotify,
+                    icon: Icon(
+                      Icons.add,
                       color: Theme.of(context).iconTheme.color,
                     ),
+                    label: Text(
+                      'Add Task',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
-                  onTap: timePicker,
-                  readOnly: true,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                OutlinedButton.icon(
-                  onPressed: addTaskAndNotify,
-                  icon: Icon(
-                    Icons.add,
-                    color: Theme.of(context).iconTheme.color,
+                  SizedBox(
+                    height: 10.h,
                   ),
-                  label: Text(
-                    'Add Task',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -243,17 +248,20 @@ class AddTaskState extends State<AddTask> {
 
     //show done message
     snackBar('New task added');
+    clearWindow();
   }
 
   void addToDb() {
-    DbHelper.insert(TaskModel(
-      id: Random().nextInt(10),
-      title: titleController.text.trim(),
-      description: descController.text.trim(),
-      endDate: endDateController.text.trim(),
-      reminder: alertController.text.trim(),
-      done: 'live',
-    ));
+    DbHelper.insert(
+      TaskModel(
+        id: Random().nextInt(10),
+        title: titleController.text.trim(),
+        description: descController.text.trim(),
+        endDate: endDateController.text.trim(),
+        reminder: alertController.text.trim(),
+        done: 'live',
+      ),
+    );
   }
 
   void snackBar(String title) {
@@ -267,5 +275,12 @@ class AddTaskState extends State<AddTask> {
         ),
       ),
     );
+  }
+
+  void clearWindow() {
+    titleController.clear();
+    descController.clear();
+    endDateController.clear();
+    alertController.clear();
   }
 }
